@@ -1,0 +1,49 @@
+{
+  "name": "gulp-sendgrid",
+  "version": "0.0.1",
+  "description": "Send email templates to SendGrid",
+  "license": "MIT",
+  "repository": "kevnk/gulp-sendgrid",
+  "author": {
+    "name": "Kevin Kirchner",
+    "email": "kirchner.kevin@gmail.com",
+    "url": "https://github.com/kevnk"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js",
+    "lib/sendgrid.js"
+  ],
+  "keywords": [
+    "gulpplugin",
+    "sendgrid",
+    "email",
+    "templates"
+  ],
+  "dependencies": {
+    "chalk": "~0.4.0",
+    "cheerio": "~0.17.0",
+    "cli-table": "~0.3.0",
+    "dateformat": "~1.0.8-1.2.3",
+    "event-stream": "~3.1.5",
+    "gulp-util": "~2.2.14",
+    "lodash": "^2.4.2",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.startcase": "^4.4.0",
+    "lodash.tolower": "^4.1.2",
+    "nodemailer": "~0.7.0",
+    "request": "~2.36.0",
+    "sendgrid": "^4.7.1",
+    "xmlbuilder": "~2.2.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "lodash.kebabcase": "^4.1.1",
+    "mocha": "~1.20.1"
+  }
+}
