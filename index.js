@@ -36,17 +36,19 @@ function sendSendGrid(options){
         if (file.isBuffer()) {
             sendgrid.getTemplates()
             .then(function() {
+                var templateName = file.dirname.replace(file.cwd, '').substring(1).split('/');
                 html = file.contents;
                 $ = cheerio.load(html);
                 title = $('title').text().trim();
-                var templateName = file.dirname.replace(file.cwd, '').substring(1).split('/')
-                templateName.shift()
-                templateName.push(file.stem)
-                templateName = startCase(toLower(templateName.join(' ')))
-                versionPrefix = options.versionPrefix || ''
-                versionName = kebabCase(versionPrefix + ' ' + templateName)
+                templateName.shift();
+                templateName.push(file.stem);
+                templateName = startCase(toLower(templateName.join(' ')));
+                versionPrefix = options.versionPrefix || '';
+                versionName = kebabCase(versionPrefix + ' ' + templateName);
 
-                if (title.length === 0) { title = date; }
+                if (title.length === 0) {
+                    title = date;
+                }
 
                 // Send SendGrid template
                 sendgrid.run(html, templateName, versionName, title);
