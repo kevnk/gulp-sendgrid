@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-sendgrid 
+# [gulp](http://gulpjs.com)-sendgrid [![npm version](https://img.shields.io/npm/v/gulp-sendgrid.svg?style=flat)](https://www.npmjs.com/package/gulp-sendgrid)
 
 Create [SendGrid](https://sendgrid.com/) templates and versions. Works great with [Foundation Emails](https://github.com/zurb/foundation-emails)
 
