@@ -16,7 +16,7 @@ function sendSendGrid(options){
 
     var now = new Date();
     var date = dateFormat(now, 'yyyy-mm-dd');
-    var sendgrid, html, $, title, finalHtml, templateName, versionName, versionPrefix;
+    var sendgrid, html, $, title, plainText, finalHtml, templateName, versionName, versionPrefix;
 
     sendgrid = new SendGrid(options);
 
@@ -40,6 +40,7 @@ function sendSendGrid(options){
                 html = file.contents;
                 $ = cheerio.load(html);
                 title = $('title').text().trim();
+                plainText = $('body').text().trim();
                 templateName.shift();
                 templateName.push(file.stem);
                 templateName = startCase(toLower(templateName.join(' ')));
@@ -51,7 +52,7 @@ function sendSendGrid(options){
                 }
 
                 // Send SendGrid template
-                sendgrid.run(html, templateName, versionName, title);
+                sendgrid.run(html, plainText, templateName, versionName, title);
             });
         }
 
