@@ -16,7 +16,7 @@ function sendSendGrid(options){
 
     var now = new Date();
     var date = dateFormat(now, 'yyyy-mm-dd');
-    var sendgrid, html, $, title, finalHtml, templateName, versionName;
+    var sendgrid, html, $, title, finalHtml, templateName, versionName, versionPrefix;
 
     sendgrid = new SendGrid(options);
 
@@ -43,7 +43,8 @@ function sendSendGrid(options){
                 templateName.shift()
                 templateName.push(file.stem)
                 templateName = startCase(toLower(templateName.join(' ')))
-                versionName = kebabCase(templateName)
+                versionPrefix = options.versionPrefix || ''
+                versionName = kebabCase(versionPrefix + ' ' + templateName)
 
                 if (title.length === 0) { title = date; }
 
