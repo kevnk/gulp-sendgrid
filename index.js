@@ -7,6 +7,7 @@ var dateFormat = require('dateformat');
 var kebabCase = require('lodash.kebabcase');
 var startCase = require('lodash.startcase');
 var toLower = require('lodash.tolower');
+var path = require('path');
 
 function sendSendGrid(options){
 
@@ -22,7 +23,6 @@ function sendSendGrid(options){
 
 
     return es.map(function (file, cb) {
-
         if (file.isNull()) {
             this.push(file);
             return cb();
@@ -36,7 +36,7 @@ function sendSendGrid(options){
         if (file.isBuffer()) {
             sendgrid.getTemplates()
             .then(function() {
-                var templateName = file.dirname.replace(file.cwd, '').substring(1).split('/');
+                var templateName = file.path.replace(file.cwd, '').substring(1).split('/');
                 html = file.contents;
                 $ = cheerio.load(html);
                 title = $('title').text().trim();
