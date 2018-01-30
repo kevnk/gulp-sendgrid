@@ -39,13 +39,13 @@ function sendSendGrid(options){
                 var templateName = file.path.replace(file.cwd, '').substring(1).split('/');
                 html = file.contents;
                 $ = cheerio.load(html);
-                title = $('title').text().trim();
+                title = $('.title').text().trim();
                 plainText = $('body').text().trim();
                 templateName.shift();
                 templateName.push(file.stem);
                 templateName = startCase(toLower(templateName.join(' ')));
                 versionPrefix = options.versionPrefix || '';
-                versionName = kebabCase(versionPrefix + ' ' + templateName);
+                versionName = kebabCase(versionPrefix + ' ' + templateName.substring(0, templateName.length - 5));
 
                 if (title.length === 0) {
                     title = date;
