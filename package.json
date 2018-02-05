@@ -1,6 +1,6 @@
 {
   "name": "gulp-sendgrid",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Send email templates to SendGrid",
   "license": "MIT",
   "repository": "kevnk/gulp-sendgrid",
