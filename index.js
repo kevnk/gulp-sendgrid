@@ -21,7 +21,6 @@ function sendSendGrid(options){
 
     sendgrid = new SendGrid(options);
 
-
     return es.map(function (file, cb) {
         if (file.isNull()) {
             this.push(file);
@@ -35,30 +34,34 @@ function sendSendGrid(options){
 
         if (file.isBuffer()) {
             sendgrid.getTemplates()
-            .then(function() {
-                var templateName = file.path.replace(file.cwd, '').substring(1).split('/');
-                html = file.contents;
-                $ = cheerio.load(html);
-                title = $('.title').text().trim();
-                plainText = $('body').text().trim();
-                templateName.shift();
-                templateName.push(file.stem);
-                templateName = startCase(toLower(templateName.join(' ')));
-                versionPrefix = options.versionPrefix || '';
-                versionName = kebabCase(versionPrefix + ' ' + templateName.substring(0, templateName.length - 5));
+                .then(function() {
+                    var templateName = file.path.replace(file.cwd, '').substring(1).split('/');
+                    html = file.contents;
+                    $ = cheerio.load(html);
+                    title = $('.title').text().trim();
+                    plainText = $('body').text().trim();
+                    templateName.shift();
+                    templateName.push(file.stem);
+                    templateName = startCase(toLower(templateName.join(' ')));
+                    versionPrefix = options.versionPrefix || '';
+                    versionName = kebabCase(versionPrefix + ' ' + templateName.substring(0, templateName.length - 5));
 
-                if (title.length === 0) {
-                    title = date;
-                }
+                    if (title.length === 0) {
+                        title = date;
+                    }
 
-                // Send SendGrid template
-                cb(sendgrid.run(html, plainText, templateName, versionName, title), file);
-            }).catch( function(e) {
-                cb(e, file);
-            });
+                    // Send SendGrid template
+                    sendgrid.run(html, plainText, templateName, versionName, title, function (s) {
+                        cb(s, file)
+                    });
+                })
+                .catch(function (e) {
+                    cb(e, file);
+                });
         } else {
             cb(null, file);
-		}
+        }
+
     });
 
 }
