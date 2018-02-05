@@ -51,14 +51,20 @@ function sendSendGrid(options){
                     }
 
                     // Send SendGrid template
-                    sendgrid.run(html, plainText, templateName, versionName, title, function (s) {
-                        cb(s, file)
-                    });
+                    sendgrid.run(html, plainText, templateName, versionName, title)
+                        .then(function(res){
+                            console.count('file uploaded successfuly');
+                            console.log(`file uploaded: ${res} (${templateName})`);
+                            cb(null, file);
+                        })
+                        .catch( function(e) {
+                            console.count('could not upload');
+                            console.log(`file not uploaded: ${res} (${templateName})`);
+                            cb(e, file)
+                        } );
                 })
-                .catch(function (e) {
-                    cb(e, file);
-                });
         } else {
+            console.log(`buffer ignored (${templateName})`);
             cb(null, file);
         }
 
